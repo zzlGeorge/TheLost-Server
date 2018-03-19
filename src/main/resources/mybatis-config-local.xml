@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="jdbc.properties"></properties>
+
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+        <setting name="cacheEnabled" value="false"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="true"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="defaultStatementTimeout" value="25"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+    </settings>
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="jdbc"/>
+            <dataSource type="POOLED">
+            <!--<dataSource type="com.george.multidb.DruidDataSourceDefine">-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url"
+                          value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+
+                <property name="poolMaximumActiveConnections" value="${poolMaximumActiveConnections}"/>
+                <property name="poolMaximumIdleConnections" value="${poolMaximumIdleConnections}"/>
+                <property name="poolMaximumCheckoutTime" value="${poolMaximumCheckoutTime}"/>
+                <property name="poolTimeToWait" value="${poolTimeToWait}"/>
+
+                <property name="poolPingQuery" value="${poolPingQuery}"/>
+                <property name="poolPingEnabled" value="${poolPingEnabled}"/>
+                <property name="poolPingConnectionsNotUsedFor" value="${poolPingConnectionsNotUsedFor}"/>
+
+                <!--<property name="maxActive" value="20"/>
+                <property name="minIdle" value="0"/>-->
+
+                <!--<property name="filters" value="stat"/>
+                &lt;!&ndash; 最大并发连接数 &ndash;&gt;
+                <property name="maxActive" value="${maxActive}"/>
+                &lt;!&ndash; 初始化连接数量 &ndash;&gt;
+                <property name="initialSize" value="${initialSize}"/>
+                &lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;
+                <property name="maxWait" value="${maxWait}"/>
+                &lt;!&ndash; 最小空闲连接数 &ndash;&gt;
+                <property name="minIdle" value="${minIdle}"/>
+                &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;
+                <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
+                &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;
+                <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
+                <property name="validationQuery" value="${validationQuery}"/>
+                <property name="testWhileIdle" value="${testWhileIdle}"/>
+                <property name="testOnBorrow" value="${testOnBorrow}"/>
+                <property name="testOnReturn" value="${testOnReturn}"/>
+                <property name="maxOpenPreparedStatements" value="${maxOpenPreparedStatements}"/>
+                &lt;!&ndash; 打开 removeAbandoned 功能 &ndash;&gt;
+                <property name="removeAbandoned" value="${removeAbandoned}"/>
+                &lt;!&ndash; 1800 秒，也就是 30 分钟 &ndash;&gt;
+                <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}"/>
+                &lt;!&ndash; 关闭 abanded 连接时输出错误日志 &ndash;&gt;
+                <property name="logAbandoned" value="${logAbandoned}"/>-->
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mappers/base/CRUDMapper.xml"/>
+        <mapper resource="mappers/DBDetailsMapper.xml"/>
+        <mapper resource="mappers/DBSrcMappersEntityMapper.xml"/>
+    </mappers>
+</configuration>
+
