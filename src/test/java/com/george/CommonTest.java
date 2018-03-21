@@ -27,23 +27,23 @@ public class CommonTest {
 
 
     /**
-     * DruidÁ¬½Ó³Ø²âÊÔ
+     * Druidè¿æ¥æ± æµ‹è¯•
      */
     @Test
     public void testDruidPools() {
-        //´´½¨ÁËÒ»¸öÊµÀı
+        //åˆ›å»ºäº†ä¸€ä¸ªå®ä¾‹
         DruidDataSource dataSource = new DruidDataSource();
-        //ÉèÖÃÊı¾İ¿âÁ¬½ÓµØÖ·
+        //è®¾ç½®æ•°æ®åº“è¿æ¥åœ°å€
         dataSource.setUrl("jdbc:sqlserver://192.168.20.164:1433;databaseName=MedicalSIMS001");
         dataSource.setUsername("sa");
         dataSource.setPassword("MK2017!");
-        //ÉèÖÃ³õÊ¼»¯´óĞ¡
+        //è®¾ç½®åˆå§‹åŒ–å¤§å°
         dataSource.setInitialSize(1);
-        //ÉèÖÃÔÚÊı¾İ¿âÁ¬½Ó´ÊÖĞµÄ×îĞ¡Á¬½ÓÊı
+        //è®¾ç½®åœ¨æ•°æ®åº“è¿æ¥è¯ä¸­çš„æœ€å°è¿æ¥æ•°
         dataSource.setMinIdle(1);
-        //ÉèÖÃ×î´óÁ¬½ÓÊı
+        //è®¾ç½®æœ€å¤§è¿æ¥æ•°
         dataSource.setMaxActive(20);
-        //ÉèÖÃ»ñÈ¡Á¬½ÓµÄ×î´óµÈ´ıÊ±¼ä
+        //è®¾ç½®è·å–è¿æ¥çš„æœ€å¤§ç­‰å¾…æ—¶é—´
         dataSource.setMaxWait(60000);
 
         dataSource.setTimeBetweenEvictionRunsMillis(60000);
@@ -76,9 +76,7 @@ public class CommonTest {
 
     @Test
     public void testCommon2() {
-        String str = "¹ãÖİÊĞ";
-        System.out.println(str.substring(0, 2));
-        System.out.println(str);
+
     }
 
 }

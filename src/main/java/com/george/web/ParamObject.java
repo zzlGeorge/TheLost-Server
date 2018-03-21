@@ -12,11 +12,6 @@ public class ParamObject {
     private String message;
     private Object dataList;
 
-    public ParamObject() {
-        this.pageNumber = 1;
-        this.pageSize = 5;
-        this.result = true;
-    }
 
     public int getCode() {
         return code;

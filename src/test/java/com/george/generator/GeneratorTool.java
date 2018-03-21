@@ -1,5 +1,6 @@
 package com.george.generator;
 
+import com.george.dao.entity.Player;
 import com.george.general.Constants;
 import com.george.utils.generators.mybatis.generator.MapperGenerator;
 import com.george.utils.javaBeanCreater.BeanProcess;
@@ -28,43 +29,43 @@ public class GeneratorTool {
     private MapperGenerator mapperGenerator;
 
     /**
-     * Éú³ÉmapperµÄjava½Ó¿ÚºÍxmlÎÄ¼ş
+     * ç”Ÿæˆmapperçš„javaæ¥å£å’Œxmlæ–‡ä»¶
      */
     @Test
     public void generateMapperTools() {
-        //ÅäÖÃ
-//        Class<?> entityClass = TestAA.class;
-        String mapperInterfacePath = "com.supplier.dao";
-        String mapperXmlPath = "\\src\\main\\resources\\com\\supplier\\dao";
+        //é…ç½®
+        Class<?> entityClass = Player.class;
+        String mapperInterfacePath = "com.george.dao.mappers";
+        String mapperXmlPath = "\\src\\main\\resources\\mappers";
 
-//        GeneratorMethods.generateMapper(mapperGenerator, entityClass, mapperInterfacePath, mapperXmlPath);
-        System.out.println("Éú³ÉÍê±Ï¡£");
+        GeneratorMethods.generateMapper(mapperGenerator, entityClass, mapperInterfacePath, mapperXmlPath);
+        System.out.println("ç”Ÿæˆå®Œæ¯•ã€‚");
     }
 
     /**
-     * javabeanÉú³ÉÆ÷
+     * javabeanç”Ÿæˆå™¨
      */
     @Test
     public void generateJavaBeanFromDB() {
-        //ÅäÖÃĞÅÏ¢
+        //é…ç½®ä¿¡æ¯
         int id = 1;//
         String basePath = Constants.ROOT_PATH + "/src/main/java";
-        String packagePath = "com.supplier.entity";
-        String tableName = "TestAA";
-        String beanClassName = "TestAA";
+        String packagePath = "com.george.dao.entity";
+        String tableName = "Player";
+        String beanClassName = "Player";
 
-        //»ñÈ¡connection
+        //è·å–connection
         Map<String, String> propkeys = new HashMap<String, String>();
-        propkeys.put("username", "instrument.user");
-        propkeys.put("password", "instrument.password");
-        propkeys.put("driver", "instrument.driver");
-        propkeys.put("url", "instrument.url");
-        JdbcUtil jdbcUtil = new JdbcUtil("/props/instruments.properties", propkeys);
+        propkeys.put("username", "jdbc.username");
+        propkeys.put("password", "jdbc.password");
+        propkeys.put("driver", "jdbc.driver");
+        propkeys.put("url", "jdbc.url");
+        JdbcUtil jdbcUtil = new JdbcUtil("jdbc.properties", propkeys);
         Connection connection = jdbcUtil.getConnection();
 
         try {
             BeanProcess.generateJavaBeanFromDB(basePath, packagePath,
-                    connection, tableName, beanClassName);//Éú³ÉjavabeanÎÄ¼şÓÚÖ¸¶¨Î»ÖÃ
+                    connection, tableName, beanClassName);//ç”Ÿæˆjavabeanæ–‡ä»¶äºæŒ‡å®šä½ç½®
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();

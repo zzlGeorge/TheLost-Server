@@ -28,7 +28,7 @@ public class JdbcUtil {
      */
     private void loadConfig(String propPath, Map<String, String> propKeys) {
         try {
-            InputStream inStream = JdbcUtil.class
+            InputStream inStream = JdbcUtil.class.getClassLoader()
                     .getResourceAsStream(propPath);
             Properties prop = new Properties();
             prop.load(inStream);

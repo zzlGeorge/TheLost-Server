@@ -5,7 +5,7 @@
                   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
     <welcome-file-list>
-        <welcome-file>/WEB-INF/page/index.html</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
     <!-- 配置所有http层数据编码格式为UTF-8 -->

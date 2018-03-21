@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.george.dao.mappers.PlayerMapper">
+
+    <sql id="baseColumns">
+        id,  status , userName , loginStatus , isDelete , sex , createTime , password , area 
+    </sql>
+
+    <select id="get" parameterType="java.lang.Long" resultType="com.george.dao.entity.Player" >
+        SELECT <include refid="baseColumns"/> FROM Player WHERE id = #{id}
+    </select>
+
+    <select id="findByEntity" parameterType="com.george.dao.entity.Player" resultType="com.george.dao.entity.Player">
+        SELECT <include refid="baseColumns"/> FROM Player
+        <where>
+                <if test="entity.status != null">
+                     status = #{entity.status}
+                </if>
+                <if test="entity.userName != null">
+                     AND userName = #{entity.userName}
+                </if>
+                <if test="entity.loginStatus != null">
+                     AND loginStatus = #{entity.loginStatus}
+                </if>
+                <if test="entity.isDelete != null">
+                     AND isDelete = #{entity.isDelete}
+                </if>
+                <if test="entity.sex != null">
+                     AND sex = #{entity.sex}
+                </if>
+                <if test="entity.createTime != null">
+                     AND createTime = #{entity.createTime}
+                </if>
+                <if test="entity.password != null">
+                     AND password = #{entity.password}
+                </if>
+                <if test="entity.area != null">
+                     AND area = #{entity.area}
+                </if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.george.dao.entity.Player" useGeneratedKeys="true" keyProperty="entity.id">
+        INSERT INTO Player(<include refid="baseColumns"/>) VALUE
+        (#{entity.id},  #{entity.status} ,  #{entity.userName} ,  #{entity.loginStatus} ,  #{entity.isDelete} ,  #{entity.sex} ,  #{entity.createTime} ,  #{entity.password} ,  #{entity.area}  )
+    </insert>
+
+    <update id="update" parameterType="com.george.dao.entity.Player">
+        UPDATE Player
+        <set>
+            <if test="entity.status != null">
+                status = #{entity.status} ,
+            </if>
+            <if test="entity.userName != null">
+                userName = #{entity.userName} ,
+            </if>
+            <if test="entity.loginStatus != null">
+                loginStatus = #{entity.loginStatus} ,
+            </if>
+            <if test="entity.isDelete != null">
+                isDelete = #{entity.isDelete} ,
+            </if>
+            <if test="entity.sex != null">
+                sex = #{entity.sex} ,
+            </if>
+            <if test="entity.createTime != null">
+                createTime = #{entity.createTime} ,
+            </if>
+            <if test="entity.password != null">
+                password = #{entity.password} ,
+            </if>
+            <if test="entity.area != null">
+                area = #{entity.area} 
+            </if>
+        </set>
+        WHERE id = #{entity.id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM Player WHERE id = #{id}
+    </delete>
+</mapper>
