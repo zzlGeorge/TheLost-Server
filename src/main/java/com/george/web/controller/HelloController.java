@@ -5,6 +5,7 @@ import com.george.service.PlayerService;
 import com.george.web.ParamObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Created by George on 2017/12/11.
  */
-
+@CrossOrigin
 @Controller
 @RequestMapping(value = "/hello")
 public class HelloController {

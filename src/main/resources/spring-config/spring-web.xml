@@ -22,7 +22,7 @@
     </bean>
     <!-- 配置freeMarker的模板路径 -->
     <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
-    <bean id="freemarkerConfig"
+    <!--<bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="freemarkerSettings" ref="freemarkerConfiguration" />
         <property name="templateLoaderPath">
@@ -30,11 +30,11 @@
         </property>
         <property name="freemarkerVariables">
             <map>
-                <!-- 设置一些常用全局变量 -->
+                &lt;!&ndash; 设置一些常用全局变量 &ndash;&gt;
                 <entry key="xml_escape" value-ref="fmXmlEscape" />
             </map>
         </property>
-    </bean>
+    </bean>-->
 
     <!-- 配置freeMarker视图解析器 -->
     <bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
