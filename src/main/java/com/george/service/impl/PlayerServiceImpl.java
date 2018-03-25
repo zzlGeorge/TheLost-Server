@@ -10,11 +10,16 @@ import org.springframework.stereotype.Service;
  * Created by admin on 2018/3/21.
  */
 @Service
-public class PlayerServiceImpl implements PlayerService{
+public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private PlayerMapper playerMapper;
 
     public Player getAPlayer() {
         return playerMapper.get(1L);
+    }
+
+    public boolean savePlayer(Player player) {
+        int operate = playerMapper.save(player);
+        return operate > 0;
     }
 }

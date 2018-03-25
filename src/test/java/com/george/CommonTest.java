@@ -1,14 +1,20 @@
 package com.george;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.george.dao.entity.Player;
 import com.george.general.Constants;
+import com.george.utils.CommonUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by George on 2017/12/12.
@@ -76,7 +82,12 @@ public class CommonTest {
 
     @Test
     public void testCommon2() {
-
+//        Player player = new Player();
+//        player.setArea("涩阿甘");
+//        player.setPassword("236234");
+//        player.setCreateTime(new Date());
+//        Map<String, Object> keyAndValue = CommonUtils.getKeyAndValue(player);
+        //%EF%BF%BD%EF%BF%BD
     }
 
 }

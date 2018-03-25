@@ -4,7 +4,7 @@ package com.george.web;
  * Created by George on 2018/1/2.
  */
 public class ParamObject {
-    private int code;
+    private int code;   //0，操作失败  1，操作成功
     private boolean result;
     private int pageSize;
     private int pageNumber;

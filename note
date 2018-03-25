@@ -1,5 +1,2 @@
-1.Spring SpringMVC Mybatis 集成
-2.生成器
-    freemarker生成器
-    mybatis生成器
-    javabean生成器
+
+1.传来的中文乱码问题无法解决

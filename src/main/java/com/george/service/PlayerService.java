@@ -7,4 +7,6 @@ import com.george.dao.entity.Player;
  */
 public interface PlayerService {
     Player getAPlayer();
+
+    boolean savePlayer(Player player);
 }
