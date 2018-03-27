@@ -55,8 +55,8 @@ public class CommonUtils {
 
     /**
      * spring mvc将前端编码（URLEncode的URI）后台接收封装好的pojo重新解码
-     * */
-    public static Object decodePojo(Object pojo){
+     */
+    public static Object decodePojo(Object pojo) {
         Class userCla = pojo.getClass();
         Field[] fs = userCla.getDeclaredFields();
         for (int i = 0; i < fs.length; i++) {
@@ -66,14 +66,14 @@ public class CommonUtils {
             try {
                 val = f.get(pojo);
                 String type = f.getType().toString();//得到此属性的类型
-                if (type.endsWith("String")) {
-                    f.set(pojo, URLDecoder.decode(val.toString(),"utf-8")) ;//给属性设值
+                if (type.endsWith("String") && val != null) {
+                    f.set(pojo, new String(val.toString().getBytes("ISO-8859-1"), "UTF-8")/*URLDecoder.decode(val.toString(),"utf-8")*/);//给属性设值
                 }
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-            }catch (UnsupportedEncodingException e){
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
 
@@ -85,9 +85,7 @@ public class CommonUtils {
     /**
      * 单个对象的所有键值
      *
-     * @param obj
-     *            单个对象
-     *
+     * @param obj 单个对象
      * @return Map<String,Object> map 所有 String键 Object值
      */
     public static Map<String, Object> getKeyAndValue(Object obj) {
@@ -109,7 +107,7 @@ public class CommonUtils {
                 String type = f.getType().toString();//得到此属性的类型
                 if (type.endsWith("String")) {
 //                    System.out.println(f.getType()+"\t是String");
-                    f.set(obj, URLDecoder.decode(val.toString(),"utf-8")) ;//给属性设值
+                    f.set(obj, URLDecoder.decode(val.toString(), "utf-8"));//给属性设值
                 }/*else if(type.endsWith("int") || type.endsWith("Integer")){
                     System.out.println(f.getType()+"\t是int");
                     f.set(obj,12) ; //给属性设值
@@ -121,7 +119,7 @@ public class CommonUtils {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-            }catch (UnsupportedEncodingException e){
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
 

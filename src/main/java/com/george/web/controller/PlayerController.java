@@ -32,14 +32,14 @@ public class PlayerController {
         return paramObject;
     }
 
-    @RequestMapping(value = "/save", method = {RequestMethod.POST})
+    @RequestMapping(value = "/save", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public Object savePlayers(Player player,String str) {
-//        Player player1 = (Player) CommonUtils.decodePojo(player);
-        try {
+    public Object savePlayers(Player player, String str) {
+        Player player1 = (Player) CommonUtils.decodePojo(player);
+        try {//文件页面为utf-8
             CommonUtils.getEncoding(str);
             String s = new String(str.getBytes("ISO-8859-1"), "UTF-8");
-            URLDecoder.decode(str,"utf-8");
+            URLDecoder.decode(str, "utf-8");
             System.out.println();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
