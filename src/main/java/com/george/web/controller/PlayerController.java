@@ -26,13 +26,20 @@ public class PlayerController {
 
     @RequestMapping(value = "/get", method = {RequestMethod.GET})
     @ResponseBody
-    public Object getPlayers() {
+    public Object getPlayers(Player player) {
         ParamObject paramObject = new ParamObject();
-        paramObject.setDataList(playerService.getAPlayer());
+        paramObject.setDataList(playerService.getPlayers(player));
         return paramObject;
     }
 
-    @RequestMapping(value = "/save", method = {RequestMethod.GET, RequestMethod.POST})
+    /**
+     * 终端传来的数据中文会乱码，待解决【2018年3月29日 15:57:17】
+     *
+     * @param player
+     * @param str
+     * @return
+     */
+    @RequestMapping(value = "/save", method = {RequestMethod.POST})
     @ResponseBody
     public Object savePlayers(Player player, String str) {
         Player player1 = (Player) CommonUtils.decodePojo(player);
@@ -46,20 +53,26 @@ public class PlayerController {
         }
         ParamObject paramObject = new ParamObject();
 //        boolean res = playerService.savePlayer(player);
-//        if (res) {
-//            paramObject.setCode(1);
-//            paramObject.setMessage("success!");
-//        } else {
-//            paramObject.setCode(0);
-//            paramObject.setMessage("failure!!");
-//        }
+//        operateResult(res, paramObject);
         return paramObject;
     }
 
-    @RequestMapping(value = "/update", method = {RequestMethod.POST})
+    @RequestMapping(value = "/update", method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
-    public Object updatePlayers() {
+    public Object updatePlayers(Player player) {
         ParamObject paramObject = new ParamObject();
+        boolean res = playerService.updatePlayer(player);
+        operateResult(res, paramObject);
         return paramObject;
+    }
+
+    private void operateResult(boolean res, ParamObject paramObject) {
+        if (res) {
+            paramObject.setCode(1);
+            paramObject.setMessage("success!");
+        } else {
+            paramObject.setCode(0);
+            paramObject.setMessage("failure!!");
+        }
     }
 }

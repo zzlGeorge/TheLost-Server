@@ -1,4 +1,6 @@
 package com.george.dao.entity;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Player{
@@ -7,7 +9,8 @@ public class Player{
 	private String password;	//密码 
 	private String sex;	//性别 
 	private String area;	//地区 
-	private Integer loginStatus;	//登陆状态（0：不在线，1：在线） 
+	private Integer loginStatus;	//登陆状态（0：不在线，1：在线）
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createTime;	//创建时间 
 	private Integer status;	//启用状态（0：禁用，1：启用） 
 	private Integer isDelete;	//是否删除（1：是，0：否） 

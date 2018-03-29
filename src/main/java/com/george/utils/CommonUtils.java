@@ -17,7 +17,7 @@ import java.util.Map;
 public class CommonUtils {
 
     public static boolean strIsEmpty(String str) {
-        if (str == null || (str != null && str.equals("")))
+        if (str == null || str.equals(""))
             return true;
         return false;
     }
