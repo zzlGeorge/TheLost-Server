@@ -5,7 +5,6 @@ package com.george.web;
  */
 public class ParamObject {
     private int code;   //0，操作失败  1，操作成功
-    private boolean result;
     private int pageSize;
     private int pageNumber;
     private int totalDisplaySize;
@@ -19,14 +18,6 @@ public class ParamObject {
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public boolean isResult() {
-        return result;
-    }
-
-    public void setResult(boolean result) {
-        this.result = result;
     }
 
     public int getPageSize() {

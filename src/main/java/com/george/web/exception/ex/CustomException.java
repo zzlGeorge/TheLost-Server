@@ -6,7 +6,7 @@ package com.george.web.exception.ex;
  *         Date : Created in 16:36 2018/3/29
  *         Modified By :
  */
-public class CustomException extends Exception {
+public class CustomException extends RuntimeException {
     //异常信息
     private String message;
 

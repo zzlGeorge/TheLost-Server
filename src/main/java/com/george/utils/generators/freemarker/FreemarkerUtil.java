@@ -14,43 +14,43 @@ import freemarker.template.TemplateException;
 /**
  * Created by George on 2017/12/28.
  * <p>
- * FreeMarkerUtil ¹¤¾ßÀà
+ * FreeMarkerUtil å·¥å…·ç±»
  */
 public class FreemarkerUtil {
 
-    // FreeMarker ÅäÖÃ
+    // FreeMarker é…ç½®
     private static Configuration cfg;
 
     /**
-     * ¾²Ì¬ÄÚ²¿Àà£¬´´½¨freeMarker ÅäÖÃ£¬ÊµÀı»¯¹¤¾ßÀà
+     * é™æ€å†…éƒ¨ç±»ï¼Œåˆ›å»ºfreeMarker é…ç½®ï¼Œå®ä¾‹åŒ–å·¥å…·ç±»
      */
     private static class LazyHolder {
-        // ´´½¨ freeMarker ÅäÖÃ
+        // åˆ›å»º freeMarker é…ç½®
         private static final Configuration config = new Configuration();
-        // ÊµÀı»¯¹¤¾ßÀà
+        // å®ä¾‹åŒ–å·¥å…·ç±»
         private static final FreemarkerUtil fk = new FreemarkerUtil();
     }
 
     /**
-     * Ë½ÓĞ¹¹Ôìº¯Êı
+     * ç§æœ‰æ„é€ å‡½æ•°
      */
     private FreemarkerUtil() {
 
     }
 
     /**
-     * ³õÊ¼»¯ÅäÖÃÎÄ¼ş£¬»ñÈ¡ÊµÀı
+     * åˆå§‹åŒ–é…ç½®æ–‡ä»¶ï¼Œè·å–å®ä¾‹
      *
-     * @param templatePath Ä£°åÂ·¾¶
-     * @return FreeMarkerUtil ¹¤¾ßÀà
+     * @param templatePath æ¨¡æ¿è·¯å¾„
+     * @return FreeMarkerUtil å·¥å…·ç±»
      */
     public static FreemarkerUtil getInstance(String templatePath) {
         if (null == cfg) {
-            // ´´½¨ freeMarker ÅäÖÃ
+            // åˆ›å»º freeMarker é…ç½®
             cfg = LazyHolder.config;
-            // ÉèÖÃ±àÂë¸ñÊ½
+            // è®¾ç½®ç¼–ç æ ¼å¼
             cfg.setDefaultEncoding("UTF-8");
-            // templatePath Ö¸µÄÊÇÄ£°åËùÔÚÂ·¾¶
+            // templatePath æŒ‡çš„æ˜¯æ¨¡æ¿æ‰€åœ¨è·¯å¾„
 //            cfg.setClassForTemplateLoading(FreemarkerUtil.class, templatePath);
             try {
                 cfg.setDirectoryForTemplateLoading(new File(templatePath));
@@ -62,9 +62,9 @@ public class FreemarkerUtil {
     }
 
     /**
-     * ¸ù¾İÄ£°æÃû³Æ¼ÓÔØ¶ÔÓ¦Ä£°æ
+     * æ ¹æ®æ¨¡ç‰ˆåç§°åŠ è½½å¯¹åº”æ¨¡ç‰ˆ
      *
-     * @param templateName Ä£°æÃû³Æ
+     * @param templateName æ¨¡ç‰ˆåç§°
      * @return
      */
     private Template getTemplate(String templateName) {
@@ -77,10 +77,10 @@ public class FreemarkerUtil {
     }
 
     /**
-     * ¿ØÖÆÌ¨´òÓ¡Í¨¹ıÄ£°åÉú³ÉµÄÎÄ¼ş
+     * æ§åˆ¶å°æ‰“å°é€šè¿‡æ¨¡æ¿ç”Ÿæˆçš„æ–‡ä»¶
      *
-     * @param dataModel    Êı¾İÄ£ĞÍ
-     * @param templateName Êä³öÄ£°æ
+     * @param dataModel    æ•°æ®æ¨¡å‹
+     * @param templateName è¾“å‡ºæ¨¡ç‰ˆ
      */
     public String getContent(Map<String, Object> dataModel, String templateName) {
         try {
@@ -99,11 +99,11 @@ public class FreemarkerUtil {
     }
 
     /**
-     * ´´½¨Í¨¹ıÄ£°åÉú³ÉµÄÎÄ¼ş
+     * åˆ›å»ºé€šè¿‡æ¨¡æ¿ç”Ÿæˆçš„æ–‡ä»¶
      *
-     * @param dataModel    Êı¾İÄ£ĞÍ
-     * @param templateName Êä³öÄ£°æ
-     * @param filePathAndFileName     Êä³öÎÄ¼şÂ·¾¶+ÎÄ¼şÃû
+     * @param dataModel    æ•°æ®æ¨¡å‹
+     * @param templateName è¾“å‡ºæ¨¡ç‰ˆ
+     * @param filePathAndFileName     è¾“å‡ºæ–‡ä»¶è·¯å¾„+æ–‡ä»¶å
      */
     public File create(Map<String, Object> dataModel, String templateName, String filePathAndFileName) {
         try {
@@ -126,32 +126,32 @@ public class FreemarkerUtil {
     }
 
     /**
-     * ¸ù¾İµØÖ·»ñµÃÊı¾İµÄ×Ö½ÚÁ÷
+     * æ ¹æ®åœ°å€è·å¾—æ•°æ®çš„å­—èŠ‚æµ
      *
-     * @param strUrl ÍøÂçÁ¬½ÓµØÖ·
-     * @return Í¼Æ¬Base64Âë
+     * @param strUrl ç½‘ç»œè¿æ¥åœ°å€
+     * @return å›¾ç‰‡Base64ç 
      */
     public String getImgBase64ByUrl(String strUrl) {
         try {
-            // ½¨Á¢ Http Á´½Ó
+            // å»ºç«‹ Http é“¾æ¥
             HttpURLConnection conn = (HttpURLConnection) new URL(strUrl).openConnection();
-            // 5ÃëÏìÓ¦³¬Ê±
+            // 5ç§’å“åº”è¶…æ—¶
             conn.setConnectTimeout(5 * 1000);
             conn.setDoInput(true);
-            // ÅĞ¶ÏhttpÇëÇóÊÇ·ñÕı³£ÏìÓ¦ÇëÇóÊı¾İ£¬Èç¹ûÕı³£»ñÈ¡Í¼Æ¬ Base64 Âë
+            // åˆ¤æ–­httpè¯·æ±‚æ˜¯å¦æ­£å¸¸å“åº”è¯·æ±‚æ•°æ®ï¼Œå¦‚æœæ­£å¸¸è·å–å›¾ç‰‡ Base64 ç 
             if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                // »ñÈ¡Í¼Æ¬ÊäÈëÁ÷
+                // è·å–å›¾ç‰‡è¾“å…¥æµ
                 InputStream inStream = conn.getInputStream();
-                // ÓÃÓÚ´æ´¢Í¼Æ¬Êä³öÁ÷
+                // ç”¨äºå­˜å‚¨å›¾ç‰‡è¾“å‡ºæµ
                 ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-                // ¶¨Òå»º´æÁ÷£¬ÓÃÓÚ´æ´¢Í¼Æ¬Êä³öÁ÷
+                // å®šä¹‰ç¼“å­˜æµï¼Œç”¨äºå­˜å‚¨å›¾ç‰‡è¾“å‡ºæµ
                 byte[] buffer = new byte[1024];
                 int len = 0;
-                // Í¼Æ¬Êä³öÁ÷Ñ­»·Ğ´Èë
+                // å›¾ç‰‡è¾“å‡ºæµå¾ªç¯å†™å…¥
                 while ((len = inStream.read(buffer)) != -1) {
                     outStream.write(buffer, 0, len);
                 }
-                // Í¼Æ¬Êä³öÁ÷×ª×Ö½ÚÁ÷
+                // å›¾ç‰‡è¾“å‡ºæµè½¬å­—èŠ‚æµ
                 byte[] btImg = outStream.toByteArray();
                 inStream.close();
                 outStream.flush();

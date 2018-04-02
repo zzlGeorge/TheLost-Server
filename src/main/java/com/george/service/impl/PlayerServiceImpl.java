@@ -3,6 +3,7 @@ package com.george.service.impl;
 import com.george.dao.entity.Player;
 import com.george.dao.mappers.PlayerMapper;
 import com.george.service.PlayerService;
+import com.george.utils.CommonUtils;
 import com.george.web.exception.ex.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,17 +25,23 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     public boolean savePlayer(Player player) {
+        player.setPassword(CommonUtils.md5Password(player.getPassword()));//加密
+
+        Player player1 = new Player();
+        player1.setUserName(player.getUserName());
+        //去重
+        List<Player> players = playerMapper.findByEntity(player1, null);
+        if (players != null && players.size() != 0) {
+            throw new CustomException("注册用户重名，请重新注册！");
+        }
+
         int operate = playerMapper.save(player);
         return operate > 0;
     }
 
     public boolean updatePlayer(Player player) {
         if (player.getId() == null) {
-            try {
-                throw new CustomException("id不可不传！");
-            } catch (CustomException e) {
-                e.printStackTrace();
-            }
+            throw new CustomException("id不可不传！");
         }
         int operate = playerMapper.update(player);
         return operate > 0;

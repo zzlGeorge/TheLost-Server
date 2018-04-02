@@ -46,7 +46,28 @@
 
     <insert id="save" parameterType="com.george.dao.entity.Player" useGeneratedKeys="true" keyProperty="entity.id">
         INSERT INTO Player(status , userName , loginStatus , isDelete , sex , createTime , password , area) VALUE
-        (#{entity.status} ,  #{entity.userName} ,  #{entity.loginStatus} ,  #{entity.isDelete} ,  #{entity.sex} ,  #{entity.createTime} ,  #{entity.password} ,  #{entity.area}  )
+        (
+        <choose>
+            <when test="entity.status !=null ">#{entity.status}</when>
+            <otherwise>1</otherwise>
+        </choose>
+        , #{entity.userName} ,
+        <choose>
+            <when test="entity.loginStatus !=null ">#{entity.loginStatus}</when>
+            <otherwise>0</otherwise>
+        </choose>
+        ,
+        <choose>
+            <when test="entity.isDelete !=null ">#{entity.isDelete}</when>
+            <otherwise>0</otherwise>
+        </choose>
+        , #{entity.sex},
+        <choose>
+            <when test="entity.createTime !=null ">#{entity.createTime}</when>
+            <otherwise>now()</otherwise>
+        </choose>
+        ,
+        #{entity.password} , #{entity.area} )
     </insert>
 
     <update id="update" parameterType="com.george.dao.entity.Player">

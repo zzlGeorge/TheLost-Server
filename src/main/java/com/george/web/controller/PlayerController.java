@@ -4,6 +4,13 @@ import com.george.dao.entity.Player;
 import com.george.service.PlayerService;
 import com.george.utils.CommonUtils;
 import com.george.web.ParamObject;
+import com.george.web.exception.ex.CustomException;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,35 +36,69 @@ public class PlayerController {
     public Object getPlayers(Player player) {
         ParamObject paramObject = new ParamObject();
         paramObject.setDataList(playerService.getPlayers(player));
+        paramObject.setCode(1);
+        return paramObject;
+    }
+
+    @RequestMapping(value = "/remindLogin", method = {RequestMethod.GET})
+    @ResponseBody
+    public Object remindLogin() {
+        ParamObject paramObject = new ParamObject();
+        paramObject.setMessage("请登陆！");
+        paramObject.setCode(1);
+        return paramObject;
+    }
+
+    @RequestMapping(value = "/login", method = {RequestMethod.GET})
+    @ResponseBody
+    public Object register(Player player) {
+        ParamObject paramObject = new ParamObject();
+        try {
+            Subject subject = SecurityUtils.getSubject();
+            UsernamePasswordToken token = new UsernamePasswordToken(player.getUserName(), player.getPassword());
+            subject.login(token);
+        } catch (IncorrectCredentialsException e) {
+            paramObject.setMessage(e.getMessage());
+            paramObject.setCode(0);
+            return paramObject;
+        } catch (UnknownAccountException e) {
+            paramObject.setMessage(e.getMessage());
+            paramObject.setCode(0);
+            return paramObject;
+        }
+        operateResult(true, paramObject);
         return paramObject;
     }
 
     /**
-     * 终端传来的数据中文会乱码，待解决【2018年3月29日 15:57:17】
-     *
-     * @param player
-     * @param str
-     * @return
+     * 退出
      */
-    @RequestMapping(value = "/save", method = {RequestMethod.POST})
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
-    public Object savePlayers(Player player, String str) {
-        Player player1 = (Player) CommonUtils.decodePojo(player);
-        try {//文件页面为utf-8
-            CommonUtils.getEncoding(str);
-            String s = new String(str.getBytes("ISO-8859-1"), "UTF-8");
-            URLDecoder.decode(str, "utf-8");
-            System.out.println();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+    public Object logout() {
+        SecurityUtils.getSubject().logout();
         ParamObject paramObject = new ParamObject();
-//        boolean res = playerService.savePlayer(player);
-//        operateResult(res, paramObject);
+        operateResult(true, paramObject);
         return paramObject;
     }
 
-    @RequestMapping(value = "/update", method = {RequestMethod.GET,RequestMethod.POST})
+    /**
+     * 终端传来的数据中文会乱码，待解决【2018年3月29日 15:57:17】【已解决】
+     *
+     * @param player
+     * @return
+     */
+    @RequestMapping(value = "/save", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public Object savePlayers(Player player) {
+        Player player1 = (Player) CommonUtils.decodePojo(player);
+        ParamObject paramObject = new ParamObject();
+        boolean res = playerService.savePlayer(player1);
+        operateResult(res, paramObject);
+        return paramObject;
+    }
+
+    @RequestMapping(value = "/update", method = {RequestMethod.POST})
     @ResponseBody
     public Object updatePlayers(Player player) {
         ParamObject paramObject = new ParamObject();
