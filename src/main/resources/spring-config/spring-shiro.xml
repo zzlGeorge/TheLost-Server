@@ -11,6 +11,13 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor"/>
     <!--注入自定义的Realm-->
     <bean id="playerRealm" class="com.george.shiro.PlayerRealm"/>
+
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <!-- 设置session过期时间为1小时(单位：毫秒)，默认为30分钟 -->
+        <property name="globalSessionTimeout" value="3600000"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+    </bean>
+
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="playerRealm"/>
     </bean>
@@ -24,7 +31,7 @@
             <value>
                 /player/save = anon
                 /player/login = anon
-                /player/** = authc
+                /** = authc
                 /logout = logout
             </value>
         </property>

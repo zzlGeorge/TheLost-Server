@@ -13,9 +13,10 @@
     <select id="findByEntity" parameterType="${pojoClass}" resultType="${pojoClass}">
         SELECT <include refid="baseColumns"/> FROM ${table}
         <where>
+            1=1
             <#list columns as column>
                 <if test="entity.${column} != null">
-                    <#if column_index != 0> AND</#if> ${column} = ${r"#"}{entity.${column}}
+                    AND <#--<#if column_index != 0> AND</#if>--> ${column} = ${r"#"}{entity.${column}}
                 </if>
             </#list>
         </where>

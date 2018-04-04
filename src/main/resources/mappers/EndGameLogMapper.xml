@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.george.dao.mappers.EndGameLogMapper">
+
+    <sql id="baseColumns">
+        id,  getDiamondsQuan , totalScore , remark , getFruitsQuan , isValid , playerId , getCoinsQuan , getRevivesQuan , getBloodVialQuan , getPnvuQuan , createTime , getInvinciblePotionsQuan , getRewardsQuan 
+    </sql>
+
+    <select id="get" parameterType="java.lang.Long" resultType="com.george.dao.entity.EndGameLog">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM EndGameLog WHERE id = #{id}
+    </select>
+
+    <select id="findByEntity" parameterType="com.george.dao.entity.EndGameLog"
+            resultType="com.george.dao.entity.EndGameLog">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM EndGameLog
+        <where>
+            1=1
+            <if test="entity.getDiamondsQuan != null">
+                AND getDiamondsQuan = #{entity.getDiamondsQuan}
+            </if>
+            <if test="entity.totalScore != null">
+                AND totalScore = #{entity.totalScore}
+            </if>
+            <if test="entity.remark != null">
+                AND remark = #{entity.remark}
+            </if>
+            <if test="entity.getFruitsQuan != null">
+                AND getFruitsQuan = #{entity.getFruitsQuan}
+            </if>
+            <if test="entity.isValid != null">
+                AND isValid = #{entity.isValid}
+            </if>
+            <if test="entity.playerId != null">
+                AND playerId = #{entity.playerId}
+            </if>
+            <if test="entity.getCoinsQuan != null">
+                AND getCoinsQuan = #{entity.getCoinsQuan}
+            </if>
+            <if test="entity.getRevivesQuan != null">
+                AND getRevivesQuan = #{entity.getRevivesQuan}
+            </if>
+            <if test="entity.getBloodVialQuan != null">
+                AND getBloodVialQuan = #{entity.getBloodVialQuan}
+            </if>
+            <if test="entity.getPnvuQuan != null">
+                AND getPnvuQuan = #{entity.getPnvuQuan}
+            </if>
+            <if test="entity.createTime != null">
+                AND createTime = #{entity.createTime}
+            </if>
+            <if test="entity.getInvinciblePotionsQuan != null">
+                AND getInvinciblePotionsQuan = #{entity.getInvinciblePotionsQuan}
+            </if>
+            <if test="entity.getRewardsQuan != null">
+                AND getRewardsQuan = #{entity.getRewardsQuan}
+            </if>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+        LIMIT 0,30
+    </select>
+
+    <select id="criteriaSearch" resultType="com.george.dao.entity.EndGameLog">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM EndGameLog
+        <where>
+            <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.conditions"/>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+
+    <insert id="save" parameterType="com.george.dao.entity.EndGameLog" useGeneratedKeys="true" keyProperty="entity.id">
+        INSERT INTO EndGameLog(getDiamondsQuan , totalScore , remark , getFruitsQuan , isValid , playerId , getCoinsQuan
+        , getRevivesQuan , getBloodVialQuan , getPnvuQuan , createTime , getInvinciblePotionsQuan , getRewardsQuan)
+        VALUE
+        (#{entity.getDiamondsQuan} , #{entity.totalScore} , #{entity.remark} , #{entity.getFruitsQuan} ,
+        <choose>
+            <when test="entity.isValid !=null ">#{entity.isValid}</when>
+            <otherwise>1</otherwise>
+        </choose>
+        , #{entity.playerId} , #{entity.getCoinsQuan} , #{entity.getRevivesQuan} ,
+        #{entity.getBloodVialQuan} , #{entity.getPnvuQuan} ,
+        <choose>
+            <when test="entity.createTime !=null ">#{entity.createTime}</when>
+            <otherwise>now()</otherwise>
+        </choose>
+        , #{entity.getInvinciblePotionsQuan} ,
+        #{entity.getRewardsQuan} )
+    </insert>
+
+    <update id="update" parameterType="com.george.dao.entity.EndGameLog">
+        UPDATE EndGameLog
+        <set>
+            <if test="entity.getDiamondsQuan != null">
+                getDiamondsQuan = #{entity.getDiamondsQuan} ,
+            </if>
+            <if test="entity.totalScore != null">
+                totalScore = #{entity.totalScore} ,
+            </if>
+            <if test="entity.remark != null">
+                remark = #{entity.remark} ,
+            </if>
+            <if test="entity.getFruitsQuan != null">
+                getFruitsQuan = #{entity.getFruitsQuan} ,
+            </if>
+            <if test="entity.isValid != null">
+                isValid = #{entity.isValid} ,
+            </if>
+            <if test="entity.playerId != null">
+                playerId = #{entity.playerId} ,
+            </if>
+            <if test="entity.getCoinsQuan != null">
+                getCoinsQuan = #{entity.getCoinsQuan} ,
+            </if>
+            <if test="entity.getRevivesQuan != null">
+                getRevivesQuan = #{entity.getRevivesQuan} ,
+            </if>
+            <if test="entity.getBloodVialQuan != null">
+                getBloodVialQuan = #{entity.getBloodVialQuan} ,
+            </if>
+            <if test="entity.getPnvuQuan != null">
+                getPnvuQuan = #{entity.getPnvuQuan} ,
+            </if>
+            <if test="entity.createTime != null">
+                createTime = #{entity.createTime} ,
+            </if>
+            <if test="entity.getInvinciblePotionsQuan != null">
+                getInvinciblePotionsQuan = #{entity.getInvinciblePotionsQuan} ,
+            </if>
+            <if test="entity.getRewardsQuan != null">
+                getRewardsQuan = #{entity.getRewardsQuan}
+            </if>
+        </set>
+        WHERE id = #{entity.id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM EndGameLog WHERE id = #{id}
+    </delete>
+</mapper>

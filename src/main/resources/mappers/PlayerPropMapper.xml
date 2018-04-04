@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.george.dao.mappers.PlayerPropMapper">
+
+    <sql id="baseColumns">
+        id,  ownQuan , playerId , remark , createTime , propId , isValid 
+    </sql>
+
+    <select id="get" parameterType="java.lang.Long" resultType="com.george.dao.entity.PlayerProp">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM player_prop WHERE id = #{id}
+    </select>
+
+    <select id="findByEntity" parameterType="com.george.dao.entity.PlayerProp"
+            resultType="com.george.dao.entity.PlayerProp">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM player_prop
+        <where>
+            <if test="entity.ownQuan != null">
+                ownQuan = #{entity.ownQuan}
+            </if>
+            <if test="entity.playerId != null">
+                AND playerId = #{entity.playerId}
+            </if>
+            <if test="entity.remark != null">
+                AND remark = #{entity.remark}
+            </if>
+            <if test="entity.createTime != null">
+                AND createTime = #{entity.createTime}
+            </if>
+            <if test="entity.propId != null">
+                AND propId = #{entity.propId}
+            </if>
+            <if test="entity.isValid != null">
+                AND isValid = #{entity.isValid}
+            </if>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+
+    <select id="criteriaSearch" resultType="com.george.dao.entity.PlayerProp">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM player_prop
+        <where>
+            <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.conditions"/>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+    <select id="findGameProp" resultType="com.george.dao.entity.GameProp">
+        SELECT * FROM prop
+        <where>
+            1=1
+            <if test="entity.propName != null">
+                AND propName = #{entity.propName}
+            </if>
+            <if test="entity.coinCost != null">
+                AND coinCost = #{entity.coinCost}
+            </if>
+            <if test="entity.propDesc != null">
+                AND propDesc = #{entity.propDesc}
+            </if>
+            <if test="entity.remark != null">
+                AND remark = #{entity.remark}
+            </if>
+            <if test="entity.isValid != null">
+                AND isValid = #{entity.isValid}
+            </if>
+            <if test="entity.createTime != null">
+                AND createTime = #{entity.createTime}
+            </if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.george.dao.entity.PlayerProp" useGeneratedKeys="true" keyProperty="entity.id">
+        INSERT INTO player_prop(<include refid="baseColumns"/>) VALUE
+        (#{entity.id}, #{entity.ownQuan} , #{entity.playerId} , #{entity.remark} , #{entity.createTime} ,
+        #{entity.propId} , #{entity.isValid} )
+    </insert>
+
+    <update id="update" parameterType="com.george.dao.entity.PlayerProp">
+        UPDATE player_prop
+        <set>
+            <if test="entity.ownQuan != null">
+                ownQuan = #{entity.ownQuan} ,
+            </if>
+            <if test="entity.playerId != null">
+                playerId = #{entity.playerId} ,
+            </if>
+            <if test="entity.remark != null">
+                remark = #{entity.remark} ,
+            </if>
+            <if test="entity.createTime != null">
+                createTime = #{entity.createTime} ,
+            </if>
+            <if test="entity.propId != null">
+                propId = #{entity.propId} ,
+            </if>
+            <if test="entity.isValid != null">
+                isValid = #{entity.isValid}
+            </if>
+        </set>
+        WHERE id = #{entity.id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM player_prop WHERE id = #{id}
+    </delete>
+</mapper>

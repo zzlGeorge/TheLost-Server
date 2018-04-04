@@ -47,7 +47,7 @@ public class JdbcUtil {
         propkeys.put("password", "jdbc.password");
         propkeys.put("driver", "jdbc.driver");
         propkeys.put("url", "jdbc.url");
-        loadConfig("/jdbc.properties", propkeys);
+        loadConfig("/props/jdbc.properties", propkeys);
     }
 
     public JdbcUtil(String propPath, Map<String, String> propKeys) {

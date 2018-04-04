@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.george.dao.mappers.SendCoinsLogMapper">
+
+    <sql id="baseColumns">
+        id,  fromWhoId , isValid , createTime , remark , toWhoId 
+    </sql>
+
+    <select id="get" parameterType="java.lang.Long" resultType="com.george.dao.entity.SendCoinsLog">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM SendCoinsLog WHERE id = #{id}
+    </select>
+
+    <select id="findByEntity" parameterType="com.george.dao.entity.SendCoinsLog"
+            resultType="com.george.dao.entity.SendCoinsLog">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM SendCoinsLog
+        <where>
+            1=1
+            <if test="entity.fromWhoId != null">
+                AND fromWhoId = #{entity.fromWhoId}
+            </if>
+            <if test="entity.isValid != null">
+                AND isValid = #{entity.isValid}
+            </if>
+            <if test="entity.createTime != null">
+                AND createTime = #{entity.createTime}
+            </if>
+            <if test="entity.remark != null">
+                AND remark = #{entity.remark}
+            </if>
+            <if test="entity.toWhoId != null">
+                AND toWhoId = #{entity.toWhoId}
+            </if>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+
+    <select id="criteriaSearch" resultType="com.george.dao.entity.SendCoinsLog">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM SendCoinsLog
+        <where>
+            <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.conditions"/>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+
+    <insert id="save" parameterType="com.george.dao.entity.SendCoinsLog" useGeneratedKeys="true"
+            keyProperty="entity.id">
+        INSERT INTO SendCoinsLog(fromWhoId , isValid , createTime , remark , toWhoId) VALUE
+        (#{entity.fromWhoId} ,
+        <choose>
+            <when test="entity.isValid !=null ">#{entity.isValid}</when>
+            <otherwise>1</otherwise>
+        </choose>
+        ,
+        <choose>
+            <when test="entity.createTime !=null ">#{entity.createTime}</when>
+            <otherwise>now()</otherwise>
+        </choose>
+        , #{entity.remark} , #{entity.toWhoId} )
+    </insert>
+
+    <update id="update" parameterType="com.george.dao.entity.SendCoinsLog">
+        UPDATE SendCoinsLog
+        <set>
+            <if test="entity.fromWhoId != null">
+                fromWhoId = #{entity.fromWhoId} ,
+            </if>
+            <if test="entity.isValid != null">
+                isValid = #{entity.isValid} ,
+            </if>
+            <if test="entity.createTime != null">
+                createTime = #{entity.createTime} ,
+            </if>
+            <if test="entity.remark != null">
+                remark = #{entity.remark} ,
+            </if>
+            <if test="entity.toWhoId != null">
+                toWhoId = #{entity.toWhoId}
+            </if>
+        </set>
+        WHERE id = #{entity.id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM SendCoinsLog WHERE id = #{id}
+    </delete>
+</mapper>

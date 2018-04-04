@@ -1,6 +1,6 @@
 package com.george.generator;
 
-import com.george.dao.entity.Player;
+import com.george.dao.entity.*;
 import com.george.general.Constants;
 import com.george.utils.generators.mybatis.generator.MapperGenerator;
 import com.george.utils.javaBeanCreater.BeanProcess;
@@ -33,8 +33,12 @@ public class GeneratorTool {
      */
     @Test
     public void generateMapperTools() {
+
+//        ApplicationContext ac = new FileSystemXmlApplicationContext("classpath:freemarker.xml");
+//        MapperGenerator generator = (MapperGenerator) ac.getBean("mapperGenerator");
+
         //配置
-        Class<?> entityClass = Player.class;
+        Class<?> entityClass = PlayerProp.class;
         String mapperInterfacePath = "com.george.dao.mappers";
         String mapperXmlPath = "\\src\\main\\resources\\mappers";
 
@@ -51,8 +55,8 @@ public class GeneratorTool {
         int id = 1;//
         String basePath = Constants.ROOT_PATH + "/src/main/java";
         String packagePath = "com.george.dao.entity";
-        String tableName = "Player";
-        String beanClassName = "Player";
+        String tableName = "Player_Prop";
+        String beanClassName = "PlayerProp";
 
         //获取connection
         Map<String, String> propkeys = new HashMap<String, String>();
@@ -60,7 +64,7 @@ public class GeneratorTool {
         propkeys.put("password", "jdbc.password");
         propkeys.put("driver", "jdbc.driver");
         propkeys.put("url", "jdbc.url");
-        JdbcUtil jdbcUtil = new JdbcUtil("jdbc.properties", propkeys);
+        JdbcUtil jdbcUtil = new JdbcUtil("props/jdbc.properties", propkeys);
         Connection connection = jdbcUtil.getConnection();
 
         try {

@@ -17,8 +17,12 @@
         <include refid="baseColumns"/>
         FROM Player
         <where>
+            1=1
+            <if test="entity.id != null">
+                AND id = #{entity.id}
+            </if>
             <if test="entity.status != null">
-                status = #{entity.status}
+                AND status = #{entity.status}
             </if>
             <if test="entity.userName != null">
                 AND userName = #{entity.userName}
@@ -42,6 +46,7 @@
                 AND area = #{entity.area}
             </if>
         </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
     </select>
 
     <insert id="save" parameterType="com.george.dao.entity.Player" useGeneratedKeys="true" keyProperty="entity.id">

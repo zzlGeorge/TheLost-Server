@@ -2,6 +2,7 @@ package com.george.web.controller;
 
 import com.george.dao.entity.Player;
 import com.george.service.PlayerService;
+import com.george.shiro.ShiroUtils;
 import com.george.utils.CommonUtils;
 import com.george.web.ParamObject;
 import com.george.web.exception.ex.CustomException;
@@ -27,7 +28,7 @@ import java.net.URLDecoder;
 @CrossOrigin
 @Controller
 @RequestMapping(value = "/player")
-public class PlayerController {
+public class PlayerController extends BaseController {
     @Autowired
     private PlayerService playerService;
 
@@ -76,7 +77,7 @@ public class PlayerController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
     public Object logout() {
-        SecurityUtils.getSubject().logout();
+        ShiroUtils.logout();
         ParamObject paramObject = new ParamObject();
         operateResult(true, paramObject);
         return paramObject;
@@ -105,15 +106,5 @@ public class PlayerController {
         boolean res = playerService.updatePlayer(player);
         operateResult(res, paramObject);
         return paramObject;
-    }
-
-    private void operateResult(boolean res, ParamObject paramObject) {
-        if (res) {
-            paramObject.setCode(1);
-            paramObject.setMessage("success!");
-        } else {
-            paramObject.setCode(0);
-            paramObject.setMessage("failure!!");
-        }
     }
 }

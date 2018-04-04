@@ -17,11 +17,11 @@
     <mvc:default-servlet-handler/>
 
     <!-- 设置freeMarker的配置文件路径 -->
-    <bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+    <!--<bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
         <property name="location" value="classpath:freemarker.properties"/>
     </bean>
-    <!-- 配置freeMarker的模板路径 -->
-    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+    &lt;!&ndash; 配置freeMarker的模板路径 &ndash;&gt;
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>-->
     <!--<bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="freemarkerSettings" ref="freemarkerConfiguration" />
@@ -38,26 +38,26 @@
 
     <!--&lt;!&ndash; 配置freeMarker视图解析器 &ndash;&gt;-->
     <!--<bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">-->
-        <!--<property name="contentType" value="text/html; charset=utf-8"/>-->
-        <!--<property name="cache" value="true"/>-->
-        <!--<property name="suffix" value=".ftl"/>-->
-        <!--<property name="exposeRequestAttributes" value="true"/>-->
-        <!--<property name="exposeSessionAttributes" value="true"/>-->
-        <!--<property name="exposeSpringMacroHelpers" value="true"/>-->
-        <!--<property name="requestContextAttribute" value="request"/>-->
-        <!--<property name="order" value="0"/>-->
+    <!--<property name="contentType" value="text/html; charset=utf-8"/>-->
+    <!--<property name="cache" value="true"/>-->
+    <!--<property name="suffix" value=".ftl"/>-->
+    <!--<property name="exposeRequestAttributes" value="true"/>-->
+    <!--<property name="exposeSessionAttributes" value="true"/>-->
+    <!--<property name="exposeSpringMacroHelpers" value="true"/>-->
+    <!--<property name="requestContextAttribute" value="request"/>-->
+    <!--<property name="order" value="0"/>-->
     <!--</bean>-->
 
     <!--&lt;!&ndash; 配置html视图解析器 &ndash;&gt;-->
     <!--<bean id="htmlviewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">-->
-        <!--<property name="contentType" value="text/html; charset=utf-8"/>-->
-        <!--<property name="cache" value="true"/>-->
-        <!--<property name="suffix" value=".html"/>-->
-        <!--<property name="exposeRequestAttributes" value="true"/>-->
-        <!--<property name="exposeSessionAttributes" value="true"/>-->
-        <!--<property name="exposeSpringMacroHelpers" value="true"/>-->
-        <!--<property name="requestContextAttribute" value="request"/>-->
-        <!--<property name="order" value="1"/>-->
+    <!--<property name="contentType" value="text/html; charset=utf-8"/>-->
+    <!--<property name="cache" value="true"/>-->
+    <!--<property name="suffix" value=".html"/>-->
+    <!--<property name="exposeRequestAttributes" value="true"/>-->
+    <!--<property name="exposeSessionAttributes" value="true"/>-->
+    <!--<property name="exposeSpringMacroHelpers" value="true"/>-->
+    <!--<property name="requestContextAttribute" value="request"/>-->
+    <!--<property name="order" value="1"/>-->
     <!--</bean>-->
 
     <!-- JSP视图解析 -->
@@ -71,9 +71,6 @@
         <property name="requestContextAttribute" value="rc"/>
         <property name="order" value="2"/>
     </bean>
-
-    <!-- 自定义的全局异常处理器只要实现HandlerExceptionResolver接口就是全局异常处理器-->
-    <!--<bean class="com.george.web.exception.CustomExceptionResolver"/>-->
 
     <!-- 4.扫描web相关的bean -->
     <context:component-scan base-package="com.george.web.controller"/>

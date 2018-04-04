@@ -9,7 +9,7 @@
 
     <!-- 配置整合mybatis过程 -->
     <!-- 1.配置数据库相关参数properties的属性：${url} -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <context:property-placeholder location="classpath:props/jdbc.properties"/>
 
     <!-- 2.数据库连接池 -->
     <bean id="c3p0DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -72,7 +72,7 @@
         <!-- 注入数据库连接池 -->
         <property name="dataSource" ref="druidDataSource"/>
         <!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
-        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <!-- 扫描entity包 使用别名 -->
         <property name="typeAliasesPackage" value="com.george.dao.entity"/>
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
