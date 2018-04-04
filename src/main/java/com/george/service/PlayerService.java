@@ -1,5 +1,6 @@
 package com.george.service;
 
+import com.george.dao.entity.GameCharacter;
 import com.george.dao.entity.Player;
 
 import java.util.List;

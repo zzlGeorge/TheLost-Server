@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.george.dao.mappers.PlayerMissionMapper">
+
+    <sql id="baseColumns">
+        id,  remark , playerId , missionId , isValid , createTime 
+    </sql>
+
+    <select id="get" parameterType="java.lang.Long" resultType="com.george.dao.entity.PlayerMission" >
+        SELECT <include refid="baseColumns"/> FROM Player_Mission WHERE id = #{id}
+    </select>
+
+    <select id="findByEntity" parameterType="com.george.dao.entity.PlayerMission" resultType="com.george.dao.entity.PlayerMission">
+        SELECT <include refid="baseColumns"/> FROM Player_Mission
+        <where>
+            1=1
+                <if test="entity.remark != null">
+                    AND  remark = #{entity.remark}
+                </if>
+                <if test="entity.playerId != null">
+                    AND  playerId = #{entity.playerId}
+                </if>
+                <if test="entity.missionId != null">
+                    AND  missionId = #{entity.missionId}
+                </if>
+                <if test="entity.isValid != null">
+                    AND  isValid = #{entity.isValid}
+                </if>
+                <if test="entity.createTime != null">
+                    AND  createTime = #{entity.createTime}
+                </if>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+
+    <select id="criteriaSearch" resultType="com.george.dao.entity.PlayerMission">
+        SELECT <include refid="baseColumns"/> FROM Player_Mission
+        <where>
+            <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.conditions"/>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+    <select id="findMissions" resultType="com.george.dao.entity.Mission">
+        SELECT * FROM mission WHERE isValid = 1;
+    </select>
+
+    <insert id="save" parameterType="com.george.dao.entity.PlayerMission" useGeneratedKeys="true" keyProperty="entity.id">
+        INSERT INTO Player_Mission(<include refid="baseColumns"/>) VALUE
+        (#{entity.id},  #{entity.remark} ,  #{entity.playerId} ,  #{entity.missionId} ,  #{entity.isValid} ,  #{entity.createTime}  )
+    </insert>
+
+    <update id="update" parameterType="com.george.dao.entity.PlayerMission">
+        UPDATE Player_Mission
+        <set>
+            <if test="entity.remark != null">
+                remark = #{entity.remark} ,
+            </if>
+            <if test="entity.playerId != null">
+                playerId = #{entity.playerId} ,
+            </if>
+            <if test="entity.missionId != null">
+                missionId = #{entity.missionId} ,
+            </if>
+            <if test="entity.isValid != null">
+                isValid = #{entity.isValid} ,
+            </if>
+            <if test="entity.createTime != null">
+                createTime = #{entity.createTime} 
+            </if>
+        </set>
+        WHERE id = #{entity.id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM Player_Mission WHERE id = #{id}
+    </delete>
+</mapper>

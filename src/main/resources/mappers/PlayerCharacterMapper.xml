@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.george.dao.mappers.PlayerCharacterMapper">
+
+    <sql id="baseColumns">
+        id,  playerId , remark , createTime , roleId , isValid 
+    </sql>
+
+    <select id="get" parameterType="java.lang.Long" resultType="com.george.dao.entity.PlayerCharacter">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM player_character WHERE id = #{id}
+    </select>
+
+    <select id="findByEntity" parameterType="com.george.dao.entity.PlayerCharacter"
+            resultType="com.george.dao.entity.PlayerCharacter">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM player_character
+        <where>
+            1=1
+            <if test="entity.playerId != null">
+                AND playerId = #{entity.playerId}
+            </if>
+            <if test="entity.remark != null">
+                AND remark = #{entity.remark}
+            </if>
+            <if test="entity.createTime != null">
+                AND createTime = #{entity.createTime}
+            </if>
+            <if test="entity.roleId != null">
+                AND roleId = #{entity.roleId}
+            </if>
+            <if test="entity.isValid != null">
+                AND isValid = #{entity.isValid}
+            </if>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+
+    <select id="criteriaSearch" resultType="com.george.dao.entity.PlayerCharacter">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM player_character
+        <where>
+            <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.conditions"/>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+    <select id="findGameCharacters" resultType="com.george.dao.entity.GameCharacter">
+        SELECT * FROM `character` WHERE isValid=1
+    </select>
+
+    <insert id="save" parameterType="com.george.dao.entity.PlayerCharacter" useGeneratedKeys="true"
+            keyProperty="entity.id">
+        INSERT INTO player_character(<include refid="baseColumns"/>) VALUE
+        (#{entity.id}, #{entity.playerId} , #{entity.remark} , #{entity.createTime} , #{entity.roleId} ,
+        #{entity.isValid} )
+    </insert>
+
+    <update id="update" parameterType="com.george.dao.entity.PlayerCharacter">
+        UPDATE player_character
+        <set>
+            <if test="entity.playerId != null">
+                playerId = #{entity.playerId} ,
+            </if>
+            <if test="entity.remark != null">
+                remark = #{entity.remark} ,
+            </if>
+            <if test="entity.createTime != null">
+                createTime = #{entity.createTime} ,
+            </if>
+            <if test="entity.roleId != null">
+                roleId = #{entity.roleId} ,
+            </if>
+            <if test="entity.isValid != null">
+                isValid = #{entity.isValid}
+            </if>
+        </set>
+        WHERE id = #{entity.id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM player_character WHERE id = #{id}
+    </delete>
+</mapper>

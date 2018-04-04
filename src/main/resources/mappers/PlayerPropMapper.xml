@@ -75,9 +75,19 @@
     </select>
 
     <insert id="save" parameterType="com.george.dao.entity.PlayerProp" useGeneratedKeys="true" keyProperty="entity.id">
-        INSERT INTO player_prop(<include refid="baseColumns"/>) VALUE
-        (#{entity.id}, #{entity.ownQuan} , #{entity.playerId} , #{entity.remark} , #{entity.createTime} ,
-        #{entity.propId} , #{entity.isValid} )
+        INSERT INTO player_prop(ownQuan , playerId , remark , createTime , propId , isValid) VALUE
+        (#{entity.ownQuan} , #{entity.playerId} , #{entity.remark} ,
+        <choose>
+            <when test="entity.createTime !=null ">#{entity.createTime}</when>
+            <otherwise>now()</otherwise>
+        </choose>
+        ,
+        #{entity.propId} ,
+        <choose>
+            <when test="entity.isValid !=null ">#{entity.isValid}</when>
+            <otherwise>1</otherwise>
+        </choose>
+        )
     </insert>
 
     <update id="update" parameterType="com.george.dao.entity.PlayerProp">

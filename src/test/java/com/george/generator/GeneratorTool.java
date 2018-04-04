@@ -38,7 +38,7 @@ public class GeneratorTool {
 //        MapperGenerator generator = (MapperGenerator) ac.getBean("mapperGenerator");
 
         //配置
-        Class<?> entityClass = PlayerProp.class;
+        Class<?> entityClass = PlayerMission.class;
         String mapperInterfacePath = "com.george.dao.mappers";
         String mapperXmlPath = "\\src\\main\\resources\\mappers";
 
@@ -55,8 +55,8 @@ public class GeneratorTool {
         int id = 1;//
         String basePath = Constants.ROOT_PATH + "/src/main/java";
         String packagePath = "com.george.dao.entity";
-        String tableName = "Player_Prop";
-        String beanClassName = "PlayerProp";
+        String tableName = "Player_Mission";
+        String beanClassName = "PlayerMission";
 
         //获取connection
         Map<String, String> propkeys = new HashMap<String, String>();

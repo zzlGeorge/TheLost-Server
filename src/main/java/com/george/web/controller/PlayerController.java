@@ -5,9 +5,7 @@ import com.george.service.PlayerService;
 import com.george.shiro.ShiroUtils;
 import com.george.utils.CommonUtils;
 import com.george.web.ParamObject;
-import com.george.web.exception.ex.CustomException;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -19,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 
 /**
  * Created by admin on 2018/3/24.
@@ -77,6 +73,10 @@ public class PlayerController extends BaseController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     @ResponseBody
     public Object logout() {
+        Player playerEntity = ShiroUtils.getPlayerEntity();
+        playerEntity.setLoginStatus(0);
+        playerService.updatePlayer(playerEntity);//更新登录状态
+
         ShiroUtils.logout();
         ParamObject paramObject = new ParamObject();
         operateResult(true, paramObject);

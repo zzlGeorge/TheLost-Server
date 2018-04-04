@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.george.dao.mappers.PlayerViewSkinMapper">
+
+    <sql id="baseColumns">
+        id,  isValid , createTime , skinId , remark , playerId 
+    </sql>
+
+    <select id="get" parameterType="java.lang.Long" resultType="com.george.dao.entity.PlayerViewSkin">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM player_viewSkin WHERE id = #{id}
+    </select>
+
+    <select id="findByEntity" parameterType="com.george.dao.entity.PlayerViewSkin"
+            resultType="com.george.dao.entity.PlayerViewSkin">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM player_viewSkin
+        <where>
+            1=1
+            <if test="entity.isValid != null">
+                AND isValid = #{entity.isValid}
+            </if>
+            <if test="entity.createTime != null">
+                AND createTime = #{entity.createTime}
+            </if>
+            <if test="entity.skinId != null">
+                AND skinId = #{entity.skinId}
+            </if>
+            <if test="entity.remark != null">
+                AND remark = #{entity.remark}
+            </if>
+            <if test="entity.playerId != null">
+                AND playerId = #{entity.playerId}
+            </if>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+
+    <select id="criteriaSearch" resultType="com.george.dao.entity.PlayerViewSkin">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM player_viewSkin
+        <where>
+            <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.conditions"/>
+        </where>
+        <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+    <select id="findViewSkins" resultType="com.george.dao.entity.ViewSkin">
+        select * from viewskin where isValid = 1;
+    </select>
+
+    <insert id="save" parameterType="com.george.dao.entity.PlayerViewSkin" useGeneratedKeys="true"
+            keyProperty="entity.id">
+        INSERT INTO player_viewSkin(<include refid="baseColumns"/>) VALUE
+        (#{entity.id}, #{entity.isValid} , #{entity.createTime} , #{entity.skinId} , #{entity.remark} ,
+        #{entity.playerId} )
+    </insert>
+
+    <update id="update" parameterType="com.george.dao.entity.PlayerViewSkin">
+        UPDATE player_viewSkin
+        <set>
+            <if test="entity.isValid != null">
+                isValid = #{entity.isValid} ,
+            </if>
+            <if test="entity.createTime != null">
+                createTime = #{entity.createTime} ,
+            </if>
+            <if test="entity.skinId != null">
+                skinId = #{entity.skinId} ,
+            </if>
+            <if test="entity.remark != null">
+                remark = #{entity.remark} ,
+            </if>
+            <if test="entity.playerId != null">
+                playerId = #{entity.playerId}
+            </if>
+        </set>
+        WHERE id = #{entity.id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        DELETE FROM player_viewSkin WHERE id = #{id}
+    </delete>
+</mapper>
