@@ -73,6 +73,35 @@
             </if>
         </where>
     </select>
+    <select id="getGamePropByPlayerId" resultType="com.george.dao.entity.GameProp">
+        SELECT
+        tb1.ownQuan,
+        tb2.*
+        FROM
+        player_prop tb1
+        JOIN prop tb2 ON tb1.propId = tb2.id
+        WHERE 1=1
+        <if test="playerId != null">
+            and tb1.playerId = #{playerId}
+        </if>
+    </select>
+    <select id="getPropRank" resultType="com.george.dao.entity.Player">
+        SELECT
+        @rownum:=@rownum+1 AS rankNum,
+            t2.id,
+            t1.ownQuan propQuan,
+            t2.userName,
+            t2.area
+        FROM
+        (SELECT @rownum:=0) r,
+            player_prop t1
+        LEFT JOIN player t2 ON t1.playerId = t2.id
+        WHERE t1.propId = #{propId}
+        ORDER BY
+            t1.ownQuan DESC
+        LIMIT 0,
+         30
+    </select>
 
     <insert id="save" parameterType="com.george.dao.entity.PlayerProp" useGeneratedKeys="true" keyProperty="entity.id">
         INSERT INTO player_prop(ownQuan , playerId , remark , createTime , propId , isValid) VALUE

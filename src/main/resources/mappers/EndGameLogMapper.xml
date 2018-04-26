@@ -60,6 +60,7 @@
             </if>
         </where>
         <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+
         LIMIT 0,30
     </select>
 
@@ -71,6 +72,22 @@
             <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.conditions"/>
         </where>
         <include refid="com.george.utils.generators.mybatis.mapper.CRUDMapper.orderBy"/>
+    </select>
+    <select id="getScoreRank" resultType="com.george.dao.entity.Player">
+        SELECT
+        @rownum:=@rownum+1 AS rankNum,
+            t2.id,
+            t1.totalScore,
+            t2.userName,
+            t2.area
+        FROM
+        (SELECT @rownum:=0) r,
+            endgamelog t1
+        LEFT JOIN player t2 ON t1.playerId = t2.id
+        ORDER BY
+            t1.totalScore DESC
+        LIMIT 0,
+         30
     </select>
 
     <insert id="save" parameterType="com.george.dao.entity.EndGameLog" useGeneratedKeys="true" keyProperty="entity.id">

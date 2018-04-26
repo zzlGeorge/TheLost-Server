@@ -1,6 +1,7 @@
 package com.george.service;
 
 import com.george.dao.entity.GameProp;
+import com.george.dao.entity.Player;
 import com.george.dao.entity.PlayerProp;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface PlayerPropService {
     List<GameProp> getProps(GameProp gameProp);
 
     boolean saveOrUpdatePlayerProps(List<PlayerProp> playerProps);
+
+    List<Player> getPropRank(Integer propId);
 }

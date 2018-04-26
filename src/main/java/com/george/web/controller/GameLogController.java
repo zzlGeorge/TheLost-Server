@@ -2,6 +2,7 @@ package com.george.web.controller;
 
 import com.george.dao.entity.EndGameLog;
 import com.george.dao.entity.LikedLog;
+import com.george.dao.entity.Player;
 import com.george.dao.entity.SendCoinsLog;
 import com.george.service.GameLogService;
 import com.george.web.ParamObject;
@@ -40,6 +41,18 @@ public class GameLogController extends BaseController {
         putDataInParam(endGameLogs, paramObject);
         return paramObject;
     }
+
+
+    @RequestMapping(value = "/getScoreRank", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public Object getScoreRank() {
+        ParamObject paramObject = new ParamObject();
+        List<Player> scoreRank = gameLogService.getScoreRank();
+        putDataInParam(scoreRank, paramObject);
+        return paramObject;
+    }
+
+
 
     @RequestMapping(value = "/saveEndGameData", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody

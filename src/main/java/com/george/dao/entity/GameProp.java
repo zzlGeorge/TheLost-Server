@@ -11,6 +11,8 @@ public class GameProp {
     private String remark;    //备注
     private Integer isValid;    //记录有效标记（0：无效；1：有效）
 
+    private Integer ownQuan; //拥有量
+
     public Integer getId() {
         return id;
     }
@@ -67,4 +69,11 @@ public class GameProp {
         this.isValid = isValid;
     }
 
+    public Integer getOwnQuan() {
+        return ownQuan;
+    }
+
+    public void setOwnQuan(Integer ownQuan) {
+        this.ownQuan = ownQuan;
+    }
 }

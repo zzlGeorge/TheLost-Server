@@ -3,7 +3,6 @@ package com.george.web.controller;
 import com.george.dao.entity.Player;
 import com.george.service.PlayerService;
 import com.george.shiro.ShiroUtils;
-import com.george.utils.CommonUtils;
 import com.george.web.ParamObject;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -37,7 +36,7 @@ public class PlayerController extends BaseController {
         return paramObject;
     }
 
-    @RequestMapping(value = "/remindLogin", method = {RequestMethod.GET})
+    @RequestMapping(value = "/remindLogin", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public Object remindLogin() {
         ParamObject paramObject = new ParamObject();
@@ -46,7 +45,7 @@ public class PlayerController extends BaseController {
         return paramObject;
     }
 
-    @RequestMapping(value = "/login", method = {RequestMethod.GET})
+    @RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public Object register(Player player) {
         ParamObject paramObject = new ParamObject();
@@ -64,6 +63,7 @@ public class PlayerController extends BaseController {
             return paramObject;
         }
         operateResult(true, paramObject);
+        paramObject.setDataList(((ParamObject) getCtPlayer()).getDataList());
         return paramObject;
     }
 
@@ -92,10 +92,20 @@ public class PlayerController extends BaseController {
     @RequestMapping(value = "/save", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public Object savePlayers(Player player) {
-        Player player1 = (Player) CommonUtils.decodePojo(player);
+//        Player player1 = (Player) CommonUtils.decodePojo(player);
         ParamObject paramObject = new ParamObject();
-        boolean res = playerService.savePlayer(player1);
+        boolean res = playerService.savePlayer(player);
         operateResult(res, paramObject);
+        return paramObject;
+    }
+
+
+    @RequestMapping(value = "/getCtPlayer", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public Object getCtPlayer() {
+        ParamObject paramObject = new ParamObject();
+        paramObject.setDataList(ShiroUtils.getPlayerEntity());
+        paramObject.setCode(1);
         return paramObject;
     }
 

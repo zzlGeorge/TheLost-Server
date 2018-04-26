@@ -50,6 +50,17 @@
     <select id="findGameCharacters" resultType="com.george.dao.entity.GameCharacter">
         SELECT * FROM `character` WHERE isValid=1
     </select>
+    <select id="getGameCharacterByPlayerId" resultType="com.george.dao.entity.GameCharacter">
+        SELECT
+        tb2.*
+        FROM
+        player_character tb1
+        JOIN `character` tb2 ON tb1.roleId = tb2.id
+        WHERE 1=1
+        <if test="playerId != null">
+            and tb1.playerId = #{playerId}
+        </if>
+    </select>
 
     <insert id="save" parameterType="com.george.dao.entity.PlayerCharacter" useGeneratedKeys="true"
             keyProperty="entity.id">

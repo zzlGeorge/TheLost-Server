@@ -50,6 +50,17 @@
     <select id="findViewSkins" resultType="com.george.dao.entity.ViewSkin">
         select * from viewskin where isValid = 1;
     </select>
+    <select id="getViewSkinByPlayerId" resultType="com.george.dao.entity.ViewSkin">
+        SELECT
+        tb2.*
+        FROM
+        player_viewskin tb1
+        JOIN viewskin tb2 ON tb1.skinId = tb2.id
+        WHERE 1=1
+        <if test="playerId != null">
+            and tb1.playerId = #{playerId}
+        </if>
+    </select>
 
     <insert id="save" parameterType="com.george.dao.entity.PlayerViewSkin" useGeneratedKeys="true"
             keyProperty="entity.id">

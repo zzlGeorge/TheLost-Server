@@ -18,6 +18,10 @@ public class Player {
     private Integer status;    //启用状态（0：禁用，1：启用）
     private Integer isDelete;    //是否删除（1：是，0：否）
 
+    private Integer rankNum;//排名编号
+    private Integer totalScore;
+    private Integer propQuan;
+
 
     private List<GameProp> gameProps; //玩家的道具数据
     private List<Achievement> achievements; //玩家成就
@@ -134,5 +138,29 @@ public class Player {
 
     public void setViewSkins(List<ViewSkin> viewSkins) {
         this.viewSkins = viewSkins;
+    }
+
+    public Integer getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(Integer totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public Integer getPropQuan() {
+        return propQuan;
+    }
+
+    public void setPropQuan(Integer propQuan) {
+        this.propQuan = propQuan;
+    }
+
+    public Integer getRankNum() {
+        return rankNum;
+    }
+
+    public void setRankNum(Integer rankNum) {
+        this.rankNum = rankNum;
     }
 }

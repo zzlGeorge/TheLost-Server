@@ -14,4 +14,6 @@ import java.util.List;
 public interface PlayerCharacterMapper extends CRUDMapper<PlayerCharacter, Long> {
 
     List<GameCharacter> findGameCharacters(@Param("entity") GameCharacter character);
+
+    List<GameCharacter> getGameCharacterByPlayerId(@Param("playerId") Integer playerId);
 }

@@ -14,4 +14,6 @@ import java.util.List;
 public interface PlayerViewSkinMapper extends CRUDMapper<PlayerViewSkin, Long> {
 
     List<ViewSkin> findViewSkins(@Param("entity") ViewSkin viewSkin);
+
+    List<ViewSkin> getViewSkinByPlayerId(@Param("playerId") Integer playerId);
 }

@@ -14,4 +14,6 @@ import java.util.List;
 public interface PlayerAchMapper extends CRUDMapper<PlayerAch, Long> {
 
     List<Achievement> findGameAchs(@Param("entity") Achievement achievement);
+
+    List<Achievement> getAchsByPlayerId(@Param("playerId") Integer playerId);
 }

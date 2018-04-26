@@ -2,6 +2,7 @@ package com.george.service.impl;
 
 import com.george.dao.entity.EndGameLog;
 import com.george.dao.entity.LikedLog;
+import com.george.dao.entity.Player;
 import com.george.dao.entity.SendCoinsLog;
 import com.george.dao.mappers.EndGameLogMapper;
 import com.george.dao.mappers.LikedLogMapper;
@@ -33,7 +34,7 @@ public class GameLogServiceImpl implements GameLogService {
     private SendCoinsLogMapper sendCoinsLogMapper;
 
     public boolean saveEndGameData(EndGameLog endGameLog) {
-        endGameLog.setPlayerId(ShiroUtils.getPlayerId());//当前玩家id设置
+//        endGameLog.setPlayerId(ShiroUtils.getPlayerId());//当前玩家id设置
         return endGameLogMapper.save(endGameLog) > 0;
     }
 
@@ -42,14 +43,18 @@ public class GameLogServiceImpl implements GameLogService {
     }
 
     public boolean saveLikedLog(LikedLog likedLog) {
-        likedLog.setFromWhoId(ShiroUtils.getPlayerId());//当前玩家id设置
+//        likedLog.setFromWhoId(ShiroUtils.getPlayerId());//当前玩家id设置
         return likedLogMapper.save(likedLog) > 0;
     }
 
     public boolean saveSendCoinsLog(SendCoinsLog sendCoinsLog) {
         // TODO 送多少金币？
-        sendCoinsLog.setFromWhoId(ShiroUtils.getPlayerId());//当前玩家id设置
+//        sendCoinsLog.setFromWhoId(ShiroUtils.getPlayerId());//当前玩家id设置
         return sendCoinsLogMapper.save(sendCoinsLog) > 0;
+    }
+
+    public List<Player> getScoreRank() {
+        return endGameLogMapper.getScoreRank();
     }
 
 }

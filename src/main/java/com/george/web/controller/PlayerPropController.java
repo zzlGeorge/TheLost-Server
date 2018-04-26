@@ -2,6 +2,7 @@ package com.george.web.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.george.dao.entity.GameProp;
+import com.george.dao.entity.Player;
 import com.george.dao.entity.PlayerProp;
 import com.george.service.PlayerPropService;
 import com.george.utils.CommonUtils;
@@ -38,6 +39,15 @@ public class PlayerPropController extends BaseController {
         return paramObject;
     }
 
+    @RequestMapping(value = "/getPropRank", method = {RequestMethod.GET,RequestMethod.POST})
+    @ResponseBody
+    public Object getPropRank(Integer propId) {
+        ParamObject paramObject = new ParamObject();
+        List<Player> propRank = playerPropService.getPropRank(propId);
+        putDataInParam(propRank, paramObject);
+        return paramObject;
+    }
+
     /**
      * @param playerProps 要保存/更新的道具(json数组串)
      * @return
@@ -50,6 +60,7 @@ public class PlayerPropController extends BaseController {
         if (CommonUtils.strIsEmpty(playerProps)) {
             throw new CustomException("没有任何道具传来！");
         }
+
         List<PlayerProp> props = JSONArray.parseArray(playerProps, PlayerProp.class);
 
         boolean res = playerPropService.saveOrUpdatePlayerProps(props);

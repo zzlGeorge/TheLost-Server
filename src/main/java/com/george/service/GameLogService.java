@@ -2,6 +2,7 @@ package com.george.service;
 
 import com.george.dao.entity.EndGameLog;
 import com.george.dao.entity.LikedLog;
+import com.george.dao.entity.Player;
 import com.george.dao.entity.SendCoinsLog;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface GameLogService {
     boolean saveLikedLog(LikedLog likedLog);
 
     boolean saveSendCoinsLog(SendCoinsLog sendCoinsLog);
+
+    List<Player> getScoreRank();
 }

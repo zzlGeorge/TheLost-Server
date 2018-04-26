@@ -1,7 +1,7 @@
 package com.george.shiro;
 
 import com.george.dao.entity.Player;
-import com.george.dao.mappers.PlayerMapper;
+import com.george.dao.mappers.*;
 import com.george.service.PlayerService;
 import com.george.utils.CommonUtils;
 import com.george.web.exception.ex.CustomException;
@@ -24,6 +24,14 @@ public class PlayerRealm extends AuthorizingRealm {
 
     @Autowired
     private PlayerService playerService;
+    @Autowired
+    private PlayerAchMapper playerAchMapper;
+    @Autowired
+    private PlayerPropMapper playerPropMapper;
+    @Autowired
+    private PlayerViewSkinMapper playerViewSkinMapper;
+    @Autowired
+    private PlayerCharacterMapper playerCharacterMapper;
 
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         return null;
@@ -45,9 +53,13 @@ public class PlayerRealm extends AuthorizingRealm {
             throw new UnknownAccountException("用户名不存在或密码不正确！");
         }
 
-
         player.setLoginStatus(1);
         playerService.updatePlayer(player);//更新登录状态
+
+        player.setAchievement(playerAchMapper.getAchsByPlayerId(player.getId()));//成就数据
+        player.setGameProps(playerPropMapper.getGamePropByPlayerId(player.getId()));//道具数据
+        player.setViewSkins(playerViewSkinMapper.getViewSkinByPlayerId(player.getId()));//场景皮肤数据
+        player.setGameCharacters(playerCharacterMapper.getGameCharacterByPlayerId(player.getId()));//角色数据
 
         return new SimpleAuthenticationInfo(player, password, getName());
     }

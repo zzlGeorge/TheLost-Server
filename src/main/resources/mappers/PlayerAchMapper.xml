@@ -51,6 +51,17 @@
     <select id="findGameAchs" resultType="com.george.dao.entity.Achievement">
         SELECT * FROM Achievement WHERE isValid=1
     </select>
+    <select id="getAchsByPlayerId" resultType="com.george.dao.entity.Achievement">
+        SELECT
+        ac.*
+        FROM
+        player_ach pa
+        JOIN achievement ac ON pa.achievementId = ac.id
+        WHERE 1=1
+        <if test="playerId != null">
+            and pa.playerId = #{playerId}
+        </if>
+    </select>
 
     <insert id="save" parameterType="com.george.dao.entity.PlayerAch" useGeneratedKeys="true" keyProperty="entity.id">
         INSERT INTO Player_Ach(<include refid="baseColumns"/>) VALUE

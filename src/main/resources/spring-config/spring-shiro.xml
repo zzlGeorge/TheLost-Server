@@ -29,9 +29,7 @@
         <!--URL的拦截-->
         <property name="filterChainDefinitions">
             <value>
-                /player/save = anon
-                /player/login = anon
-                /** = authc
+                /** = anon
                 /logout = logout
             </value>
         </property>
